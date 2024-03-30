@@ -17,6 +17,11 @@
         <module>gulimall-order</module>
         <module>gulimall-product</module>
         <module>gulimall-ware</module>
+        <!--    人人开源后台开发脚手架    -->
+        <module>renren-fast</module>
+        <!--   人人开源CRUD代码生成器     -->
+        <module>renren-generator</module>
+        <module>gulimall-common</module>
     </modules>
 
 </project>
