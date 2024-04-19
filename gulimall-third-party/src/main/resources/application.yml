@@ -1,0 +1,18 @@
+# 自定义配置，配置对象存储 oss
+hgy:
+  alioss:
+    endpoint: oss-cn-shenzhen.aliyuncs.com #地域节点
+    access-key-id: LTAI5t7WZ1YbHuzJ76bBJGrn #access-key-id
+    access-key-secret: aKdPS0888OWuQKhqCGsu5Re71HWRVg #access-key-secret
+    bucket: gulimall-hgy
+
+server:
+  port: 12000
+
+spring:
+  application:
+    name: gulimall-third-party
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848

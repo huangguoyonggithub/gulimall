@@ -31,11 +31,11 @@ public class SkuInfoController {
     private SkuInfoService skuInfoService;
 
     /**
-     * 列表
+     * sku列表的查询和检索
      */
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = skuInfoService.queryPage(params);
+        PageUtils page = skuInfoService.queryPageByCondition(params);
 
         return R.ok().put("page", page);
     }

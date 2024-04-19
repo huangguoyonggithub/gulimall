@@ -3,12 +3,9 @@ package com.hgy.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.hgy.product.vo.SpuSaveVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hgy.product.entity.SpuInfoEntity;
 import com.hgy.product.service.SpuInfoService;
@@ -31,11 +28,11 @@ public class SpuInfoController {
     private SpuInfoService spuInfoService;
 
     /**
-     * 列表
+     * spu列表查询以及检索
      */
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = spuInfoService.queryPage(params);
+        PageUtils page = spuInfoService.queryPageByConition(params);
 
         return R.ok().put("page", page);
     }
@@ -52,11 +49,13 @@ public class SpuInfoController {
     }
 
     /**
-     * 保存
+     * 保存发布商品信息
      */
-    @RequestMapping("/save")
-    public R save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
+    @PostMapping("/save")
+    public R save(@RequestBody SpuSaveVo vo){
+//		spuInfoService.save(spuInfo);
+
+        spuInfoService.saveSpuInfo(vo);
 
         return R.ok();
     }

@@ -26,4 +26,13 @@ public class SpuInfoDescServiceImpl extends ServiceImpl<SpuInfoDescDao, SpuInfoD
         return new PageUtils(page);
     }
 
+    /**
+     * 保存发布商品功能-->保存spu的描述图片信息,pms_spu_info_desc
+     * @param descEntity
+     */
+    @Override
+    public void saveSpuInfoDesc(SpuInfoDescEntity descEntity) {
+        this.baseMapper.insert(descEntity);
+    }
+
 }

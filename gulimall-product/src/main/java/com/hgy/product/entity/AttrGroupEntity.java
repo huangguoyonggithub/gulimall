@@ -1,5 +1,6 @@
 package com.hgy.product.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -44,5 +45,11 @@ public class AttrGroupEntity implements Serializable {
 	 * 所属分类id
 	 */
 	private Long catelogId;
+
+	/**
+	 * 三级分类的详细路径
+	 */
+	@TableField(exist = false) //在数据库中不存在的字段
+	private Long[] catelogPath;
 
 }
