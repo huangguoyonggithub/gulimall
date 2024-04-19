@@ -1,0 +1,51 @@
+# 配置网关路由规则 (启动测试访问：http://localhost:88/?url=baidu)
+spring:
+  cloud:
+    gateway:
+        routes:
+          # 配置product路由
+          - id: product_route
+            uri: lb://gulimall-product  #负载均衡到gulimall-product服务
+            predicates:
+              - Path=/api/product/**
+            filters:
+              - RewritePath=/api/(?<segment>.*),/$\{segment} #路径重写(把api前缀去掉，剩余的就是要访问路径)
+          #http://localhost:88/api/product/category/list/tree ---> http://localhost:11000/product/category/list/tree
+          #注意精确的路由要放在前面，防止所有服务都去到模糊路由 - Path=/api/product/** ———— - Path=/api/**
+
+          # 配置member路由
+          - id: member_route
+            uri: lb://gulimall-member  #负载均衡到gulimall-member服务
+            predicates:
+              - Path=/api/member/**
+            filters:
+              - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+          # 配置ware路由
+          - id: ware_route
+            uri: lb://gulimall-ware  #负载均衡到gulimall-ware服务
+            predicates:
+              - Path=/api/ware/**
+            filters:
+              - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+          # 配置文件上传的路由
+          - id: third_party_route
+            uri: lb://gulimall-third-party  #负载均衡到gulimall-third-party服务
+            predicates:
+              - Path=/api/thirdparty/**
+            filters:
+              - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
+
+          - id: admin_route
+            uri: lb://renren-fast  #负载均衡到renren-fast前端服务
+            predicates:
+              - Path=/api/**
+            filters:
+              - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment} #路径重写(把api前缀去掉，加入renren-fast前缀和剩余的就是要访问路径)
+          #http://localhost:88/api/captcha.jpg ---> http://localhost:8080/renren-fast/api/captcha.jpg
+          #前端项目发送请求都带上api这个前置，只要有api前置都默认路由网关负载到renren-fast
+          #http://localhost:88/api/captcha.jpg （前端验证码）
+          #怎么转成我们真正能访问的地址http://localhost:8080/renren-fast/api/captcha.jpg，使用路径重写
+
+

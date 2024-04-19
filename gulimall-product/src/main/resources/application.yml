@@ -1,0 +1,49 @@
+# 配置数据源
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.182.136:3306/gulimall_pms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: gulimall-product
+  # 允许循环查库（有问题，以后还修改）
+  main:
+    allow-circular-references: true #允许循环查库（有问题，以后还修改）
+  # 格式化时间
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss  # 格式化时间
+    time-zone: GMT+8
+#  profiles:
+#    active: dev
+
+# 配置 mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto #主键自增
+      logic-delete-field: flag # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+# 端口号
+server:
+  port: 10001
+logging:
+  level:
+    com.hgy.product: debug #为了dao可以打印sql语句
+
+# 自定义配置，配置对象存储 oss
+hgy:
+  alioss:
+    endpoint: oss-cn-shenzhen.aliyuncs.com #地域节点
+    access-key-id: LTAI5t7WZ1YbHuzJ76bBJGrn #access-key-id
+    access-key-secret: aKdPS0888OWuQKhqCGsu5Re71HWRVg #access-key-secret
+
+
+
